@@ -14,11 +14,19 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.textfield.TextInputLayout
 import com.nurdaulet.shoppinglist.R
 import com.nurdaulet.shoppinglist.domain.ShopItem
+import javax.inject.Inject
 
 class ShopItemFragment() : Fragment() {
 
     private lateinit var viewmodel: ShopItemViewModel
     private lateinit var onFragmentEditingFinishedListener: OnFragmentEditingFinishedListener
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
+    private val component by lazy{
+        (requireActivity().application as ShopApplication).component
+    }
 
     private lateinit var tilName: TextInputLayout
     private lateinit var tilCount: TextInputLayout
@@ -36,6 +44,8 @@ class ShopItemFragment() : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
+        component.inject(this)
+
         if (context is OnFragmentEditingFinishedListener) {
             onFragmentEditingFinishedListener = context
         } else {
@@ -54,7 +64,7 @@ class ShopItemFragment() : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewmodel = ViewModelProvider(this)[ShopItemViewModel::class.java]
+        viewmodel = ViewModelProvider(this, viewModelFactory)[ShopItemViewModel::class.java]
 
         initViews(view)
         addTextChangeListeners()
