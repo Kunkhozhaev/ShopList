@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Shopping List</string>
+    <string name="floatingBtnDescription">Adds new shop item</string>
+    <string name="nameHint">Name:</string>
+    <string name="countHint">Count:</string>
+    <string name="buttonText">Save</string>
+    <string name="error_input_count">Invalid count</string>
+    <string name="error_input_name">Invalid name</string>
+</resources>
